@@ -13,7 +13,7 @@ public class ItemView1 {
 	@Id
 	private Long id;
 
-	@Column(name = "itemnumber")
+	@Column(name = "itemnumber", unique = true)
 	private String itemnumber;
 
 	@Column(name = "description")

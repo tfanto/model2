@@ -35,11 +35,11 @@ public class Item {
 
 	@NotEmpty
 	@Size(max = 50)
-	@Column(name = "itemnumber")
+	@Column(name = "itemnumber", unique = true )
 	private String itemnumber;
 
 	@NotEmpty
-	@Size(max = 50)
+	@Size(max = 250)
 	@Column(name = "description")
 	private String description;
 

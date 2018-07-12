@@ -33,7 +33,7 @@ public class Customer {
 
 	@NotEmpty
 	@Size(max = 50)
-	@Column(name = "customernumber")
+	@Column(name = "customernumber", unique = true)
 	private String customernumber;
 
 	@NotEmpty
@@ -43,7 +43,7 @@ public class Customer {
 	private String name;
 
 	@NotEmpty
-	@Size(max = 50)
+	@Size(max = 250)
 	@Column(name = "description")
 	private String description;
 
