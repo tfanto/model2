@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
@@ -14,9 +15,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "customer_order_head")
+@Table(name = "customer_order_head", indexes = {
+		@Index(columnList = "orderNumber", name = "customerorderhead00", unique = true),
+		@Index(columnList = "internalordernumber", name = "customerorderhead10", unique = true),
+		@Index(columnList = "customerId", name = "customerorderhead20", unique = false) })
 @NamedQueries({
-		@NamedQuery(name = CustomerOrderHead.CUSTOMER_ORDERHEAD_GET_ALL, query = "SELECT oh FROM CustomerOrderHead oh"), })
+		@NamedQuery(name = CustomerOrderHead.CUSTOMER_ORDERHEAD_GET_ALL, query = "SELECT coh FROM CustomerOrderHead coh"), })
 public class CustomerOrderHead {
 
 	public static final String CUSTOMER_ORDERHEAD_GET_ALL = "customerorderhead.getall";
@@ -33,7 +37,7 @@ public class CustomerOrderHead {
 
 	@Column(name = "customerid")
 	@NotNull
-	private String customerId;
+	private Long customerId;
 
 	@Column(name = "date")
 	@NotNull
@@ -59,11 +63,11 @@ public class CustomerOrderHead {
 		this.orderNumber = orderNumber;
 	}
 
-	public String getCustomerId() {
+	public Long getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(String customerId) {
+	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;
 	}
 
@@ -131,5 +135,10 @@ public class CustomerOrderHead {
 			return false;
 		return true;
 	}
+	
+	
+	
+	
+	
 
 }
