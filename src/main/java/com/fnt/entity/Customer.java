@@ -14,10 +14,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "customer", indexes = {
-		@Index(columnList="id", name = "customer00", unique=true),
-		@Index(columnList="name", name = "customer10", unique=true),
-})
+@Table(name = "customer", indexes = { @Index(columnList = "id", name = "customer00", unique = true),
+		@Index(columnList = "customernumber", name = "customer10", unique = true), })
 @NamedQueries({ @NamedQuery(name = Customer.CUSTOMER_GET_ALL, query = "SELECT c FROM Customer c"), })
 public class Customer {
 
@@ -35,6 +33,12 @@ public class Customer {
 
 	@NotEmpty
 	@Size(max = 50)
+	@Column(name = "customernumber")
+	private String customernumber;
+
+	@NotEmpty
+	@Size(max = 50)
+	@NotEmpty
 	@Column(name = "name")
 	private String name;
 
@@ -49,6 +53,14 @@ public class Customer {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getCustomernumber() {
+		return customernumber;
+	}
+
+	public void setCustomernumber(String customernumber) {
+		this.customernumber = customernumber;
 	}
 
 	public String getName() {
@@ -103,10 +115,5 @@ public class Customer {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
 
 }
