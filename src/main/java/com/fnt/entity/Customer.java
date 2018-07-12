@@ -2,15 +2,23 @@ package com.fnt.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customer", indexes = {
+		@Index(columnList="id", name = "customer00", unique=true),
+		@Index(columnList="name", name = "customer10", unique=true),
+})
 @NamedQueries({ @NamedQuery(name = Customer.CUSTOMER_GET_ALL, query = "SELECT c FROM Customer c"), })
-
 public class Customer {
 
 	public static final String CUSTOMER_GET_ALL = "customer.getall";
@@ -20,17 +28,26 @@ public class Customer {
 	}
 
 	@Id
-	@Column(name = "id")
-	private String id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_generator")
+	@SequenceGenerator(name = "customer_generator", sequenceName = "customer_seq")
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 
+	@NotEmpty
+	@Size(max = 50)
 	@Column(name = "name")
 	private String name;
 
-	public String getId() {
+	@NotEmpty
+	@Size(max = 50)
+	@Column(name = "description")
+	private String description;
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -42,10 +59,19 @@ public class Customer {
 		this.name = name;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
@@ -60,6 +86,11 @@ public class Customer {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -72,5 +103,10 @@ public class Customer {
 			return false;
 		return true;
 	}
+	
+	
+	
+	
+	
 
 }

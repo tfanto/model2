@@ -9,9 +9,12 @@ import javax.persistence.Table;
 @Table(name = "item")
 public class ItemView1 {
 
+	@Column(name = "id", updatable = false, nullable = false)
 	@Id
-	@Column(name = "id")
-	private String id;
+	private Long id;
+
+	@Column(name = "itemnumber")
+	private String itemnumber;
 
 	@Column(name = "description")
 	private String description;
@@ -26,42 +29,10 @@ public class ItemView1 {
 
 	}
 
-	public ItemView1(String id, String description, Integer inStock, Double price) {
-		this.id = id;
+	public ItemView1(String itemnumber, String description, Integer inStock, Double price) {
+		this.itemnumber = itemnumber;
 		this.description = description;
 		this.inStock = inStock;
-		this.price = price;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Integer getInStock() {
-		return inStock;
-	}
-
-	public void setInStock(Integer inStock) {
-		this.inStock = inStock;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
 		this.price = price;
 	}
 

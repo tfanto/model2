@@ -5,12 +5,14 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "customer_order_line")
+@Table(name = "customer_order_line", indexes = {
+		@Index(columnList = "internalordernumber,lineNumber", name = "customerorderline00", unique = true) })
 public class CustomerOrderLine {
 
 	private CustomerOrderLinePK primaryKey;
@@ -21,7 +23,7 @@ public class CustomerOrderLine {
 
 	@Column(name = "item_id")
 	@NotNull(message = "Customer orderline itemId cannot be null")
-	private String itemId;
+	private Long itemId;
 
 	@Column(name = "number_of_items")
 	@NotNull(message = "Customer orderline number of items cannot be null")
@@ -50,11 +52,11 @@ public class CustomerOrderLine {
 		this.date = date;
 	}
 
-	public String getItemId() {
+	public Long getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(String itemId) {
+	public void setItemId(Long itemId) {
 		this.itemId = itemId;
 	}
 

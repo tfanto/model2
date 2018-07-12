@@ -2,13 +2,21 @@ package com.fnt.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "item")
+@Table(name = "item", indexes = { @Index(columnList = "id", name = "item00", unique = true),
+		@Index(columnList = "itemnumber", name = "item10", unique = true), })
 @NamedQueries({ @NamedQuery(name = Item.ITEM_GET_ALL, query = "SELECT i FROM Item i"), })
 
 public class Item {
@@ -20,13 +28,23 @@ public class Item {
 	}
 
 	@Id
-	@Column(name = "id")
-	private String id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_generator")
+	@SequenceGenerator(name = "item_generator", sequenceName = "item_seq")
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 
+	@NotEmpty
+	@Size(max = 50)
+	@Column(name = "itemnumber")
+	private String itemnumber;
+
+	@NotEmpty
+	@Size(max = 50)
 	@Column(name = "description")
 	private String description;
 
 	@Column(name = "ordering_point")
+	@Min(value=1, message="ordering point must have a descent value")
 	private Integer orderingPoint;
 
 	@Column(name = "in_stock")
@@ -38,12 +56,20 @@ public class Item {
 	@Column(name = "purchase_price")
 	private Double purchasePrice;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getItemnumber() {
+		return itemnumber;
+	}
+
+	public void setItemnumber(String itemnumber) {
+		this.itemnumber = itemnumber;
 	}
 
 	public String getDescription() {
@@ -93,6 +119,7 @@ public class Item {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((inStock == null) ? 0 : inStock.hashCode());
+		result = prime * result + ((itemnumber == null) ? 0 : itemnumber.hashCode());
 		result = prime * result + ((orderingPoint == null) ? 0 : orderingPoint.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
 		result = prime * result + ((purchasePrice == null) ? 0 : purchasePrice.hashCode());
@@ -123,6 +150,11 @@ public class Item {
 				return false;
 		} else if (!inStock.equals(other.inStock))
 			return false;
+		if (itemnumber == null) {
+			if (other.itemnumber != null)
+				return false;
+		} else if (!itemnumber.equals(other.itemnumber))
+			return false;
 		if (orderingPoint == null) {
 			if (other.orderingPoint != null)
 				return false;
@@ -140,5 +172,10 @@ public class Item {
 			return false;
 		return true;
 	}
+	
+	
+	
+	
+	
 
 }
