@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "item")
@@ -20,19 +21,23 @@ public class ItemView1 {
 	private String description;
 
 	@Column(name = "in_stock")
-	private Integer inStock;
+	private Integer instock;
 
 	@Column(name = "price")
 	private Double price;
+	
+	@Version
+	@Column(name = "internal_chgnbr")
+	private Long internal_chgnbr;
 
 	public ItemView1() {
 
 	}
 
-	public ItemView1(String itemnumber, String description, Integer inStock, Double price) {
+	public ItemView1(String itemnumber, String description, Integer instock, Double price) {
 		this.itemnumber = itemnumber;
 		this.description = description;
-		this.inStock = inStock;
+		this.instock = instock;
 		this.price = price;
 	}
 
@@ -60,12 +65,12 @@ public class ItemView1 {
 		this.description = description;
 	}
 
-	public Integer getInStock() {
-		return inStock;
+	public Integer getInstock() {
+		return instock;
 	}
 
-	public void setInStock(Integer inStock) {
-		this.inStock = inStock;
+	public void setInstock(Integer instock) {
+		this.instock = instock;
 	}
 
 	public Double getPrice() {
@@ -76,13 +81,22 @@ public class ItemView1 {
 		this.price = price;
 	}
 
+	public Long getInternal_chgnbr() {
+		return internal_chgnbr;
+	}
+
+	public void setInternal_chgnbr(Long internal_chgnbr) {
+		this.internal_chgnbr = internal_chgnbr;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((inStock == null) ? 0 : inStock.hashCode());
+		result = prime * result + ((instock == null) ? 0 : instock.hashCode());
+		result = prime * result + ((internal_chgnbr == null) ? 0 : internal_chgnbr.hashCode());
 		result = prime * result + ((itemnumber == null) ? 0 : itemnumber.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
 		return result;
@@ -107,10 +121,15 @@ public class ItemView1 {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (inStock == null) {
-			if (other.inStock != null)
+		if (instock == null) {
+			if (other.instock != null)
 				return false;
-		} else if (!inStock.equals(other.inStock))
+		} else if (!instock.equals(other.instock))
+			return false;
+		if (internal_chgnbr == null) {
+			if (other.internal_chgnbr != null)
+				return false;
+		} else if (!internal_chgnbr.equals(other.internal_chgnbr))
 			return false;
 		if (itemnumber == null) {
 			if (other.itemnumber != null)
@@ -126,7 +145,7 @@ public class ItemView1 {
 	}
 	
 	
-	
+
 	
 
 }

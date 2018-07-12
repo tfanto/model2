@@ -10,6 +10,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -46,6 +47,11 @@ public class Customer {
 	@Size(max = 250)
 	@Column(name = "description")
 	private String description;
+	
+	@Version
+	@Column(name = "internal_chgnbr")
+	private Long internal_chgnbr;
+
 
 	public Long getId() {
 		return id;
@@ -79,12 +85,22 @@ public class Customer {
 		this.description = description;
 	}
 
+	public Long getInternal_chgnbr() {
+		return internal_chgnbr;
+	}
+
+	public void setInternal_chgnbr(Long internal_chgnbr) {
+		this.internal_chgnbr = internal_chgnbr;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((customernumber == null) ? 0 : customernumber.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((internal_chgnbr == null) ? 0 : internal_chgnbr.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -98,6 +114,11 @@ public class Customer {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
+		if (customernumber == null) {
+			if (other.customernumber != null)
+				return false;
+		} else if (!customernumber.equals(other.customernumber))
+			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
@@ -108,6 +129,11 @@ public class Customer {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (internal_chgnbr == null) {
+			if (other.internal_chgnbr != null)
+				return false;
+		} else if (!internal_chgnbr.equals(other.internal_chgnbr))
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -115,5 +141,7 @@ public class Customer {
 			return false;
 		return true;
 	}
+
+
 
 }

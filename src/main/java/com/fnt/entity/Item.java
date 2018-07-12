@@ -10,6 +10,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -35,7 +36,7 @@ public class Item {
 
 	@NotEmpty
 	@Size(max = 50)
-	@Column(name = "itemnumber", unique = true )
+	@Column(name = "itemnumber", unique = true)
 	private String itemnumber;
 
 	@NotEmpty
@@ -44,17 +45,21 @@ public class Item {
 	private String description;
 
 	@Column(name = "ordering_point")
-	@Min(value=1, message="ordering point must have a descent value")
-	private Integer orderingPoint;
+	@Min(value = 1, message = "ordering point must have a descent value")
+	private Integer orderingpoint;
 
 	@Column(name = "in_stock")
-	private Integer inStock;
+	private Integer instock;
 
 	@Column(name = "price")
 	private Double price;
 
 	@Column(name = "purchase_price")
-	private Double purchasePrice;
+	private Double purchaseprice;
+	
+	@Version
+	@Column(name = "internal_chgnbr")
+	private Long internal_chgnbr;
 
 	public Long getId() {
 		return id;
@@ -80,20 +85,20 @@ public class Item {
 		this.description = description;
 	}
 
-	public Integer getOrderingPoint() {
-		return orderingPoint;
+	public Integer getOrderingpoint() {
+		return orderingpoint;
 	}
 
-	public void setOrderingPoint(Integer orderingPoint) {
-		this.orderingPoint = orderingPoint;
+	public void setOrderingpoint(Integer orderingpoint) {
+		this.orderingpoint = orderingpoint;
 	}
 
-	public Integer getInStock() {
-		return inStock;
+	public Integer getInstock() {
+		return instock;
 	}
 
-	public void setInStock(Integer inStock) {
-		this.inStock = inStock;
+	public void setInstock(Integer instock) {
+		this.instock = instock;
 	}
 
 	public Double getPrice() {
@@ -104,12 +109,20 @@ public class Item {
 		this.price = price;
 	}
 
-	public Double getPurchasePrice() {
-		return purchasePrice;
+	public Double getPurchaseprice() {
+		return purchaseprice;
 	}
 
-	public void setPurchasePrice(Double purchasePrice) {
-		this.purchasePrice = purchasePrice;
+	public void setPurchaseprice(Double purchaseprice) {
+		this.purchaseprice = purchaseprice;
+	}
+
+	public Long getInternal_chgnbr() {
+		return internal_chgnbr;
+	}
+
+	public void setInternal_chgnbr(Long internal_chgnbr) {
+		this.internal_chgnbr = internal_chgnbr;
 	}
 
 	@Override
@@ -118,11 +131,12 @@ public class Item {
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((inStock == null) ? 0 : inStock.hashCode());
+		result = prime * result + ((instock == null) ? 0 : instock.hashCode());
+		result = prime * result + ((internal_chgnbr == null) ? 0 : internal_chgnbr.hashCode());
 		result = prime * result + ((itemnumber == null) ? 0 : itemnumber.hashCode());
-		result = prime * result + ((orderingPoint == null) ? 0 : orderingPoint.hashCode());
+		result = prime * result + ((orderingpoint == null) ? 0 : orderingpoint.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
-		result = prime * result + ((purchasePrice == null) ? 0 : purchasePrice.hashCode());
+		result = prime * result + ((purchaseprice == null) ? 0 : purchaseprice.hashCode());
 		return result;
 	}
 
@@ -145,37 +159,42 @@ public class Item {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (inStock == null) {
-			if (other.inStock != null)
+		if (instock == null) {
+			if (other.instock != null)
 				return false;
-		} else if (!inStock.equals(other.inStock))
+		} else if (!instock.equals(other.instock))
+			return false;
+		if (internal_chgnbr == null) {
+			if (other.internal_chgnbr != null)
+				return false;
+		} else if (!internal_chgnbr.equals(other.internal_chgnbr))
 			return false;
 		if (itemnumber == null) {
 			if (other.itemnumber != null)
 				return false;
 		} else if (!itemnumber.equals(other.itemnumber))
 			return false;
-		if (orderingPoint == null) {
-			if (other.orderingPoint != null)
+		if (orderingpoint == null) {
+			if (other.orderingpoint != null)
 				return false;
-		} else if (!orderingPoint.equals(other.orderingPoint))
+		} else if (!orderingpoint.equals(other.orderingpoint))
 			return false;
 		if (price == null) {
 			if (other.price != null)
 				return false;
 		} else if (!price.equals(other.price))
 			return false;
-		if (purchasePrice == null) {
-			if (other.purchasePrice != null)
+		if (purchaseprice == null) {
+			if (other.purchaseprice != null)
 				return false;
-		} else if (!purchasePrice.equals(other.purchasePrice))
+		} else if (!purchaseprice.equals(other.purchaseprice))
 			return false;
 		return true;
 	}
 	
 	
-	
-	
-	
+
+
+
 
 }
