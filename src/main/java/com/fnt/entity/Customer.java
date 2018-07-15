@@ -15,12 +15,15 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "customer", indexes = { @Index(columnList = "id", name = "customer00", unique = true),
-		@Index(columnList = "customernumber", name = "customer10", unique = true), })
-@NamedQueries({ @NamedQuery(name = Customer.CUSTOMER_GET_ALL, query = "SELECT c FROM Customer c"), })
+@Table(name = "customer", indexes = { @Index(columnList = "id", name = "customer00", unique = true), @Index(columnList = "customernumber", name = "customer10", unique = true), })
+    @NamedQueries({ 
+    	@NamedQuery(name = Customer.CUSTOMER_GET_ALL, query = "SELECT c FROM Customer c"), 
+	    @NamedQuery(name = Customer.CUSTOMER_GET_BY_CUSTOMERNUMBER, query = "SELECT c FROM Customer c where c.customernumber = :customernumber"), 
+	})
 public class Customer {
 
 	public static final String CUSTOMER_GET_ALL = "customer.getall";
+	public static final String CUSTOMER_GET_BY_CUSTOMERNUMBER = "customer.getbycustomernumber";
 
 	public Customer() {
 		// TODO Auto-generated constructor stub
@@ -47,11 +50,10 @@ public class Customer {
 	@Size(max = 250)
 	@Column(name = "description")
 	private String description;
-	
+
 	@Version
 	@Column(name = "internal_chgnbr")
 	private Long internal_chgnbr;
-
 
 	public Long getId() {
 		return id;
@@ -141,7 +143,5 @@ public class Customer {
 			return false;
 		return true;
 	}
-
-
 
 }
