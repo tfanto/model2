@@ -2,7 +2,7 @@ package com.fnt.dto;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.ZoneOffset;
 
 public class CustomerOrderHeadListView {
@@ -17,7 +17,7 @@ public class CustomerOrderHeadListView {
 	private Long id;
 	private String customernumber;
 	private String name;
-	private LocalDateTime date;
+	private LocalDate date;
 	private String changedby;
 	private Integer status;
 
@@ -39,10 +39,9 @@ public class CustomerOrderHeadListView {
 		// todo convert to LocalDateTime
 		try {
 			Timestamp ts = Timestamp.valueOf(dateStr);
-			Instant instant = Instant.ofEpochMilli(ts.getTime());
-			date = LocalDateTime.ofInstant(instant, ZoneOffset.systemDefault());
+			date = LocalDate.ofEpochDay(ts.getTime());
 		} catch (RuntimeException e) {
-			date = LocalDateTime.now();
+			date = LocalDate.now();
 		}
 
 		changedby = str(record[CHANGEDBY]);
@@ -86,11 +85,11 @@ public class CustomerOrderHeadListView {
 		this.name = name;
 	}
 
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

@@ -1,6 +1,6 @@
 package com.fnt.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,7 +42,7 @@ public class CustomerOrderHead {
 
 	@Column(name = "date")
 	@NotNull
-	private LocalDateTime date;
+	private LocalDate date;
 
 	@Column(name = "status")
 	@NotNull
@@ -81,11 +81,11 @@ public class CustomerOrderHead {
 		this.customerid = customerid;
 	}
 
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

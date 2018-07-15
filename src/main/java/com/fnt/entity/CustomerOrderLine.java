@@ -1,6 +1,6 @@
 package com.fnt.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -19,7 +19,7 @@ public class CustomerOrderLine {
 
 	@Column(name = "date")
 	@NotNull(message = "Customer orderline date cannot be null")
-	private LocalDateTime date;
+	private LocalDate date;
 
 	@Column(name = "item_id")
 	@NotNull(message = "Customer orderline itemId cannot be null")
@@ -44,11 +44,11 @@ public class CustomerOrderLine {
 		this.primaryKey = primaryKey;
 	}
 
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
