@@ -5,6 +5,16 @@ public class SearchData {
 	private String id;
 	private String description;
 
+	public SearchData() {
+
+	}
+
+	public SearchData(String id, String description) {
+		this.id = id;
+		this.description = description;
+
+	}
+
 	public String getId() {
 		return id;
 	}
