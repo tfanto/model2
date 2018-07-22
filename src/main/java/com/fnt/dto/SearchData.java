@@ -4,15 +4,21 @@ public class SearchData {
 
 	private String id;
 	private String description;
+	private String extra;
 
 	public SearchData() {
-
 	}
 
 	public SearchData(String id, String description) {
+		this.extra = "";
 		this.id = id;
 		this.description = description;
-
+	}
+	
+	public SearchData(String id, String description,String extra) {
+		this.extra = extra;
+		this.id = id;
+		this.description = description;
 	}
 
 	public String getId() {
@@ -26,6 +32,15 @@ public class SearchData {
 	public String getDescription() {
 		return description;
 	}
+	
+	public void setExtra(String extra) {
+		this.extra = extra;
+	}
+
+	public String getExtra() {
+		return extra;
+	}
+
 
 	public void setDescription(String description) {
 		this.description = description;
