@@ -16,15 +16,14 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "customer_order_head", indexes = {
-		@Index(columnList = "ordernumber", name = "customerorderhead00", unique = true),
-		@Index(columnList = "internalordernumber", name = "customerorderhead10", unique = true),
+@Table(name = "customer_order_head", indexes = { @Index(columnList = "ordernumber", name = "customerorderhead00", unique = true), @Index(columnList = "internalordernumber", name = "customerorderhead10", unique = true),
 		@Index(columnList = "customerid", name = "customerorderhead20", unique = false) })
-@NamedQueries({
-		@NamedQuery(name = CustomerOrderHead.CUSTOMER_ORDERHEAD_GET_ALL, query = "SELECT coh FROM CustomerOrderHead coh"), })
+@NamedQueries({ @NamedQuery(name = CustomerOrderHead.CUSTOMER_ORDERHEAD_GET_ALL, query = "SELECT coh FROM CustomerOrderHead coh"),
+		        })
 public class CustomerOrderHead {
 
 	public static final String CUSTOMER_ORDERHEAD_GET_ALL = "customerorderhead.getall";
+	public static final String CUSTOMER_ORDERHEAD_UPDATE = "customerorderhead.update";
 
 	@Column(name = "internalordernumber")
 	@NotNull
@@ -51,11 +50,10 @@ public class CustomerOrderHead {
 	@Version
 	@Column(name = "internal_chgnbr")
 	private Long internal_chgnbr;
-	
+
 	@Column(name = "changedby")
 	@NotNull
 	private String changedby;
-
 
 	public String getInternalordernumber() {
 		return internalordernumber;
@@ -173,12 +171,5 @@ public class CustomerOrderHead {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }
