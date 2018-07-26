@@ -16,13 +16,13 @@ public class CustomerOrderLinePK implements Serializable {
 	private String internalordernumber;
 
 	@NotNull(message = "Customer orderline linenumber cannot be null")
-	private Integer lineNumber;
+	private Long lineNumber;
 
 	public CustomerOrderLinePK() {
 
 	}
 
-	public CustomerOrderLinePK(String internalordernumber, Integer lineNumber) {
+	public CustomerOrderLinePK(String internalordernumber, Long lineNumber) {
 		this.internalordernumber = internalordernumber;
 		this.lineNumber = lineNumber;
 	}
@@ -35,11 +35,11 @@ public class CustomerOrderLinePK implements Serializable {
 		this.internalordernumber = internalordernumber;
 	}
 
-	public Integer getLineNumber() {
+	public Long getLineNumber() {
 		return lineNumber;
 	}
 
-	public void setLineNumber(Integer lineNumber) {
+	public void setLineNumber(Long lineNumber) {
 		this.lineNumber = lineNumber;
 	}
 
