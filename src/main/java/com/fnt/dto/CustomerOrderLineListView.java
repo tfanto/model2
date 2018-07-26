@@ -1,14 +1,17 @@
 package com.fnt.dto;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+
 public class CustomerOrderLineListView {
 
 	private static final int INTERNAL_ORDER_NUMBER = 0;
 	private static final int LINE_NUMBER = 1;
-	private static final int ITEM_NUMBER = 2;
-	private static final int ITEM_DESCRIPTION = 3;
-	private static final int UNITS = 4;
-	private static final int PRICE_PER_ITEM = 5;
-	private static final int LINE_TOTAL = 6;
+	private static final int DATE = 2;
+	private static final int ITEM_NUMBER = 3;
+	private static final int ITEM_DESCRIPTION = 4;
+	private static final int UNITS = 5;
+	private static final int PRICE_PER_ITEM = 6;
 
 	private String internal_ordernumber;
 	private Long linennumber;
@@ -16,21 +19,33 @@ public class CustomerOrderLineListView {
 	private String description;
 	private Long units;
 	private Double priceperitem;
+	private LocalDate date;
 	private Double linetotal;
 
-	CustomerOrderLineListView() {
+	public CustomerOrderLineListView() {
 
 	}
 
-	CustomerOrderLineListView(Object record[]) {
+	public CustomerOrderLineListView(Object record[]) {
 
 		internal_ordernumber = str(record[INTERNAL_ORDER_NUMBER]);
+
 		try {
 			linennumber = Long.parseLong(str(record[LINE_NUMBER]));
 		} catch (RuntimeException r) {
 			linennumber = Long.MIN_VALUE;
 		}
+
+		String dateStr = str(record[DATE]);
+		try {
+			Timestamp ts = Timestamp.valueOf(dateStr);
+			date = LocalDate.ofEpochDay(ts.getTime());
+		} catch (RuntimeException e) {
+			date = LocalDate.now();
+		}
+
 		itemnumber = str(record[ITEM_NUMBER]);
+
 		description = str(record[ITEM_DESCRIPTION]);
 
 		try {
@@ -44,25 +59,7 @@ public class CustomerOrderLineListView {
 		} catch (RuntimeException r) {
 			units = Long.MIN_VALUE;
 		}
-
-		try {
-			linetotal = Double.parseDouble(str(record[LINE_TOTAL]));
-		} catch (RuntimeException r) {
-			units = Long.MIN_VALUE;
-		}
-
-		/*
-		 * String dateStr = str(record[DATE]); try { Timestamp ts =
-		 * Timestamp.valueOf(dateStr); date = LocalDate.ofEpochDay(ts.getTime()); }
-		 * catch (RuntimeException e) { date = LocalDate.now(); }
-		 */
 	}
-	
-	
-	
-	
-	
-	
 
 	public String getInternal_ordernumber() {
 		return internal_ordernumber;
@@ -112,6 +109,14 @@ public class CustomerOrderLineListView {
 		this.priceperitem = priceperitem;
 	}
 
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
 	public Double getLinetotal() {
 		return linetotal;
 	}
@@ -119,18 +124,20 @@ public class CustomerOrderLineListView {
 	public void setLinetotal(Double linetotal) {
 		this.linetotal = linetotal;
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	private String str(Object obj) {
+		try {
+			return String.valueOf(obj);
+		} catch (RuntimeException e) {
+			return "";
+		}
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((internal_ordernumber == null) ? 0 : internal_ordernumber.hashCode());
 		result = prime * result + ((itemnumber == null) ? 0 : itemnumber.hashCode());
@@ -150,6 +157,11 @@ public class CustomerOrderLineListView {
 		if (getClass() != obj.getClass())
 			return false;
 		CustomerOrderLineListView other = (CustomerOrderLineListView) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
@@ -186,14 +198,6 @@ public class CustomerOrderLineListView {
 		} else if (!units.equals(other.units))
 			return false;
 		return true;
-	}
-
-	private String str(Object obj) {
-		try {
-			return String.valueOf(obj);
-		} catch (RuntimeException e) {
-			return "";
-		}
 	}
 
 }

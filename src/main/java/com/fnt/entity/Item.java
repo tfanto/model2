@@ -18,11 +18,15 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "item", indexes = { @Index(columnList = "id", name = "item00", unique = true),
 		@Index(columnList = "itemnumber", name = "item10", unique = true), })
-@NamedQueries({ @NamedQuery(name = Item.ITEM_GET_ALL, query = "SELECT i FROM Item i"), })
+@NamedQueries({ @NamedQuery(name = Item.ITEM_GET_ALL, query = "SELECT i FROM Item i"), 
+				@NamedQuery(name = Item.ITEM_GET_BY_ITEMNUMBER, query = "SELECT i FROM Item i where i.itemnumber = :itemnumber"), 
+	
+})
 
 public class Item {
 
 	public static final String ITEM_GET_ALL = "item.getall";
+	public static final String ITEM_GET_BY_ITEMNUMBER = "item.getbyitemnumber";
 
 	public Item() {
 		// TODO Auto-generated constructor stub

@@ -11,11 +11,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "customer_order_line", indexes = {
-		@Index(columnList = "internalordernumber,lineNumber", name = "customerorderline00", unique = true) })
+@Table(name = "customer_order_line", indexes = { @Index(columnList = "internalordernumber,lineNumber", name = "customerorderline00", unique = true) })
 public class CustomerOrderLine {
 
-	private CustomerOrderLinePK primaryKey;
+	@EmbeddedId
+	private CustomerOrderLinePK primarykey;
 
 	@Column(name = "date")
 	@NotNull(message = "Customer orderline date cannot be null")
@@ -23,25 +23,24 @@ public class CustomerOrderLine {
 
 	@Column(name = "item_id")
 	@NotNull(message = "Customer orderline itemId cannot be null")
-	private Long itemId;
+	private Long itemid;
 
 	@Column(name = "number_of_items")
 	@NotNull(message = "Customer orderline number of items cannot be null")
 	@Min(value = 1, message = "At least one item must be ordered for a customerorderline")
-	private Integer numberOfItems;
+	private Integer numberofitems;
 
 	@Column(name = "price_per_item")
 	@NotNull(message = "Customer orderline price cannot be null")
 	@Min(value = 1, message = "Customer order line price cannot be below 1")
-	private Double pricePerItem;
+	private Double priceperitem;
 
-	@EmbeddedId
-	public CustomerOrderLinePK getPrimaryKey() {
-		return primaryKey;
+	public CustomerOrderLinePK getPrimarykey() {
+		return primarykey;
 	}
 
-	public void setPrimaryKey(CustomerOrderLinePK primaryKey) {
-		this.primaryKey = primaryKey;
+	public void setPrimarykey(CustomerOrderLinePK primarykey) {
+		this.primarykey = primarykey;
 	}
 
 	public LocalDate getDate() {
@@ -52,28 +51,28 @@ public class CustomerOrderLine {
 		this.date = date;
 	}
 
-	public Long getItemId() {
-		return itemId;
+	public Long getItemid() {
+		return itemid;
 	}
 
-	public void setItemId(Long itemId) {
-		this.itemId = itemId;
+	public void setItemid(Long itemid) {
+		this.itemid = itemid;
 	}
 
-	public Integer getNumberOfItems() {
-		return numberOfItems;
+	public Integer getNumberofitems() {
+		return numberofitems;
 	}
 
-	public void setNumberOfItems(Integer numberOfItems) {
-		this.numberOfItems = numberOfItems;
+	public void setNumberofitems(Integer numberofitems) {
+		this.numberofitems = numberofitems;
 	}
 
-	public Double getPricePerItem() {
-		return pricePerItem;
+	public Double getPriceperitem() {
+		return priceperitem;
 	}
 
-	public void setPricePerItem(Double pricePerItem) {
-		this.pricePerItem = pricePerItem;
+	public void setPriceperitem(Double priceperitem) {
+		this.priceperitem = priceperitem;
 	}
 
 	@Override
@@ -81,10 +80,10 @@ public class CustomerOrderLine {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((itemId == null) ? 0 : itemId.hashCode());
-		result = prime * result + ((numberOfItems == null) ? 0 : numberOfItems.hashCode());
-		result = prime * result + ((pricePerItem == null) ? 0 : pricePerItem.hashCode());
-		result = prime * result + ((primaryKey == null) ? 0 : primaryKey.hashCode());
+		result = prime * result + ((itemid == null) ? 0 : itemid.hashCode());
+		result = prime * result + ((numberofitems == null) ? 0 : numberofitems.hashCode());
+		result = prime * result + ((priceperitem == null) ? 0 : priceperitem.hashCode());
+		result = prime * result + ((primarykey == null) ? 0 : primarykey.hashCode());
 		return result;
 	}
 
@@ -102,25 +101,25 @@ public class CustomerOrderLine {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (itemId == null) {
-			if (other.itemId != null)
+		if (itemid == null) {
+			if (other.itemid != null)
 				return false;
-		} else if (!itemId.equals(other.itemId))
+		} else if (!itemid.equals(other.itemid))
 			return false;
-		if (numberOfItems == null) {
-			if (other.numberOfItems != null)
+		if (numberofitems == null) {
+			if (other.numberofitems != null)
 				return false;
-		} else if (!numberOfItems.equals(other.numberOfItems))
+		} else if (!numberofitems.equals(other.numberofitems))
 			return false;
-		if (pricePerItem == null) {
-			if (other.pricePerItem != null)
+		if (priceperitem == null) {
+			if (other.priceperitem != null)
 				return false;
-		} else if (!pricePerItem.equals(other.pricePerItem))
+		} else if (!priceperitem.equals(other.priceperitem))
 			return false;
-		if (primaryKey == null) {
-			if (other.primaryKey != null)
+		if (primarykey == null) {
+			if (other.primarykey != null)
 				return false;
-		} else if (!primaryKey.equals(other.primaryKey))
+		} else if (!primarykey.equals(other.primarykey))
 			return false;
 		return true;
 	}
