@@ -118,7 +118,7 @@ public class CustomerOrderLineListView {
 	}
 
 	public Double getLinetotal() {
-		return linetotal;
+		return priceperitem * units;
 	}
 
 	public void setLinetotal(Double linetotal) {
