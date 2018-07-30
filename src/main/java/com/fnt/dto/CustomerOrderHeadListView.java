@@ -1,9 +1,10 @@
 package com.fnt.dto;
 
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class CustomerOrderHeadListView {
 
@@ -35,11 +36,10 @@ public class CustomerOrderHeadListView {
 		customernumber = str(record[CUSTOMERNUMBER]);
 		name = str(record[NAME]);
 
-		String dateStr = str(record[DATE]);
+		String aDate = str(record[DATE]);
 		// todo convert to LocalDateTime
-		try {
-			Timestamp ts = Timestamp.valueOf(dateStr);
-			date = LocalDate.ofEpochDay(ts.getTime());
+		try {			
+			date = LocalDate.parse(aDate, DateTimeFormatter.ISO_LOCAL_DATE);
 		} catch (RuntimeException e) {
 			date = LocalDate.now();
 		}

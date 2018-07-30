@@ -1,7 +1,7 @@
 package com.fnt.dto;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class CustomerOrderLineListView {
 
@@ -36,10 +36,10 @@ public class CustomerOrderLineListView {
 			linennumber = Long.MIN_VALUE;
 		}
 
-		String dateStr = str(record[DATE]);
+		String aDate = str(record[DATE]);
+		// todo convert to LocalDateTime
 		try {
-			Timestamp ts = Timestamp.valueOf(dateStr);
-			date = LocalDate.ofEpochDay(ts.getTime());
+			date = LocalDate.parse(aDate, DateTimeFormatter.ISO_LOCAL_DATE);
 		} catch (RuntimeException e) {
 			date = LocalDate.now();
 		}
