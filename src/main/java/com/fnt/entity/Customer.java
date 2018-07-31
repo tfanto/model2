@@ -35,19 +35,18 @@ public class Customer {
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
-	@NotEmpty
-	@Size(max = 50)
+	@NotEmpty(message="customernumber must have a value")
+	@Size(max = 50, message="max length for customernumber is 50")
 	@Column(name = "customernumber", unique = true)
 	private String customernumber;
 
-	@NotEmpty
-	@Size(max = 50)
-	@NotEmpty
+	@Size(max = 50, message="max length for name is 50")
+	@NotEmpty(message="name must have a value")
 	@Column(name = "name")
 	private String name;
 
-	@NotEmpty
-	@Size(max = 250)
+	@NotEmpty(message="description must have a value")
+	@Size(max = 250, message="max length for description is 250")
 	@Column(name = "description")
 	private String description;
 

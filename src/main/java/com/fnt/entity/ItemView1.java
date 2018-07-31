@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "item")
@@ -14,15 +17,21 @@ public class ItemView1 {
 	@Id
 	private Long id;
 
+	@NotEmpty(message="itemnumber must have a value")
+	@Size(max = 50, message="max length for itemnumber is 50")
 	@Column(name = "itemnumber", unique = true)
 	private String itemnumber;
 
+	@NotEmpty(message="description must have a value")
+	@Size(max = 250, message="max length for description is 250")
 	@Column(name = "description")
 	private String description;
 
+	@Min(value = 1, message = "instock must have a value")
 	@Column(name = "in_stock")
 	private Integer instock;
 
+	@Min(value = 1, message = "price must have a value")
 	@Column(name = "price")
 	private Double price;
 	
