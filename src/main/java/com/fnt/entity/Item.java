@@ -38,26 +38,29 @@ public class Item {
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
-	@NotEmpty
-	@Size(max = 50)
+	@NotEmpty(message="itemnumber must have a value")
+	@Size(max = 50, message="max length for itemnumber is 50")
 	@Column(name = "itemnumber", unique = true)
 	private String itemnumber;
 
-	@NotEmpty
-	@Size(max = 250)
+	@NotEmpty(message="description must have a value")
+	@Size(max = 250, message="max length for description is 250")
 	@Column(name = "description")
 	private String description;
 
 	@Column(name = "ordering_point")
-	@Min(value = 1, message = "ordering point must have a descent value")
+	@Min(value = 1, message = "minium value for ordering point is 1")
 	private Integer orderingpoint;
 
+	@Min(value = 1, message = "instock must have a value")
 	@Column(name = "in_stock")
 	private Integer instock;
 
+	@Min(value = 1, message = "price must have a value")
 	@Column(name = "price")
 	private Double price;
 
+	@Min(value = 1, message = "purchaseprice must have a value")
 	@Column(name = "purchase_price")
 	private Double purchaseprice;
 	

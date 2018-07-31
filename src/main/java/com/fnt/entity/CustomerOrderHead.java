@@ -40,7 +40,7 @@ public class CustomerOrderHead {
 	private Long customerid;
 
 	@Column(name = "date")
-	@NotNull
+	@NotNull(message="orderdate cannot be null")
 	private LocalDate date;
 
 	@Column(name = "status")

@@ -6,7 +6,8 @@ import java.util.List;
 import com.fnt.entity.CustomerOrderHead;
 import com.fnt.entity.CustomerOrderLine;
 
-/** for batch processing contains an order  header and all lines
+/**
+ * for batch processing contains an order header and all lines
  * 
  * @author tfant
  *
