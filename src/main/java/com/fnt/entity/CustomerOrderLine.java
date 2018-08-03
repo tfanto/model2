@@ -10,7 +10,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.envers.Audited;
+
 @Entity
+@Audited
 @Table(name = "customer_order_line", indexes = { @Index(columnList = "internalordernumber,lineNumber", name = "customerorderline00", unique = true) })
 public class CustomerOrderLine {
 
@@ -34,6 +37,10 @@ public class CustomerOrderLine {
 	@NotNull(message = "Customer orderline price cannot be null")
 	@Min(value = 1, message = "Customer order line price cannot be below 1")
 	private Double priceperitem;
+
+	@Column(name = "changedby")
+	@NotNull
+	private String changedby;
 
 	public CustomerOrderLinePK getPrimarykey() {
 		return primarykey;
@@ -75,10 +82,19 @@ public class CustomerOrderLine {
 		this.priceperitem = priceperitem;
 	}
 
+	public String getChangedby() {
+		return changedby;
+	}
+
+	public void setChangedby(String changedby) {
+		this.changedby = changedby;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((changedby == null) ? 0 : changedby.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((itemid == null) ? 0 : itemid.hashCode());
 		result = prime * result + ((numberofitems == null) ? 0 : numberofitems.hashCode());
@@ -96,6 +112,11 @@ public class CustomerOrderLine {
 		if (getClass() != obj.getClass())
 			return false;
 		CustomerOrderLine other = (CustomerOrderLine) obj;
+		if (changedby == null) {
+			if (other.changedby != null)
+				return false;
+		} else if (!changedby.equals(other.changedby))
+			return false;
 		if (date == null) {
 			if (other.date != null)
 				return false;

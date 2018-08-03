@@ -13,14 +13,16 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.envers.Audited;
+
 @Entity
-@Table(name = "item", indexes = { @Index(columnList = "id", name = "item00", unique = true),
-		@Index(columnList = "itemnumber", name = "item10", unique = true), })
-@NamedQueries({ @NamedQuery(name = Item.ITEM_GET_ALL, query = "SELECT i FROM Item i"), 
-				@NamedQuery(name = Item.ITEM_GET_BY_ITEMNUMBER, query = "SELECT i FROM Item i where i.itemnumber = :itemnumber"), 
-	
+@Audited
+@Table(name = "item", indexes = { @Index(columnList = "id", name = "item00", unique = true), @Index(columnList = "itemnumber", name = "item10", unique = true), })
+@NamedQueries({ @NamedQuery(name = Item.ITEM_GET_ALL, query = "SELECT i FROM Item i"), @NamedQuery(name = Item.ITEM_GET_BY_ITEMNUMBER, query = "SELECT i FROM Item i where i.itemnumber = :itemnumber"),
+
 })
 
 public class Item {
@@ -38,13 +40,13 @@ public class Item {
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
-	@NotEmpty(message="itemnumber must have a value")
-	@Size(max = 50, message="max length for itemnumber is 50")
+	@NotEmpty(message = "itemnumber must have a value")
+	@Size(max = 50, message = "max length for itemnumber is 50")
 	@Column(name = "itemnumber", unique = true)
 	private String itemnumber;
 
-	@NotEmpty(message="description must have a value")
-	@Size(max = 250, message="max length for description is 250")
+	@NotEmpty(message = "description must have a value")
+	@Size(max = 250, message = "max length for description is 250")
 	@Column(name = "description")
 	private String description;
 
@@ -63,10 +65,14 @@ public class Item {
 	@Min(value = 1, message = "purchaseprice must have a value")
 	@Column(name = "purchase_price")
 	private Double purchaseprice;
-	
+
 	@Version
 	@Column(name = "internal_chgnbr")
 	private Long internal_chgnbr;
+
+	@Column(name = "changedby")
+	@NotNull
+	private String changedby;
 
 	public Long getId() {
 		return id;
@@ -132,10 +138,19 @@ public class Item {
 		this.internal_chgnbr = internal_chgnbr;
 	}
 
+	public String getChangedby() {
+		return changedby;
+	}
+
+	public void setChangedby(String changedby) {
+		this.changedby = changedby;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((changedby == null) ? 0 : changedby.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((instock == null) ? 0 : instock.hashCode());
@@ -156,6 +171,11 @@ public class Item {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
+		if (changedby == null) {
+			if (other.changedby != null)
+				return false;
+		} else if (!changedby.equals(other.changedby))
+			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
@@ -198,10 +218,5 @@ public class Item {
 			return false;
 		return true;
 	}
-	
-	
-
-
-
 
 }

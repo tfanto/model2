@@ -15,11 +15,13 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.envers.Audited;
+
 @Entity
+@Audited
 @Table(name = "customer_order_head", indexes = { @Index(columnList = "ordernumber", name = "customerorderhead00", unique = true), @Index(columnList = "internalordernumber", name = "customerorderhead10", unique = true),
 		@Index(columnList = "customerid", name = "customerorderhead20", unique = false) })
-@NamedQueries({ @NamedQuery(name = CustomerOrderHead.CUSTOMER_ORDERHEAD_GET_ALL, query = "SELECT coh FROM CustomerOrderHead coh"),
-		        })
+@NamedQueries({ @NamedQuery(name = CustomerOrderHead.CUSTOMER_ORDERHEAD_GET_ALL, query = "SELECT coh FROM CustomerOrderHead coh"), })
 public class CustomerOrderHead {
 
 	public static final String CUSTOMER_ORDERHEAD_GET_ALL = "customerorderhead.getall";
@@ -40,7 +42,7 @@ public class CustomerOrderHead {
 	private Long customerid;
 
 	@Column(name = "date")
-	@NotNull(message="orderdate cannot be null")
+	@NotNull(message = "orderdate cannot be null")
 	private LocalDate date;
 
 	@Column(name = "status")

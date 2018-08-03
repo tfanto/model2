@@ -7,9 +7,13 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.envers.Audited;
+
 @Entity
+@Audited
 @Table(name = "item")
 public class ItemView1 {
 
@@ -38,6 +42,11 @@ public class ItemView1 {
 	@Version
 	@Column(name = "internal_chgnbr")
 	private Long internal_chgnbr;
+	
+	@Column(name = "changedby")
+	@NotNull
+	private String changedby;
+
 
 	public ItemView1() {
 
@@ -97,11 +106,21 @@ public class ItemView1 {
 	public void setInternal_chgnbr(Long internal_chgnbr) {
 		this.internal_chgnbr = internal_chgnbr;
 	}
+	
+	
+	public String getChangedby() {
+		return changedby;
+	}
+
+	public void setChangedby(String changedby) {
+		this.changedby = changedby;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((changedby == null) ? 0 : changedby.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((instock == null) ? 0 : instock.hashCode());
@@ -120,6 +139,11 @@ public class ItemView1 {
 		if (getClass() != obj.getClass())
 			return false;
 		ItemView1 other = (ItemView1) obj;
+		if (changedby == null) {
+			if (other.changedby != null)
+				return false;
+		} else if (!changedby.equals(other.changedby))
+			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
@@ -152,8 +176,7 @@ public class ItemView1 {
 			return false;
 		return true;
 	}
-	
-	
+
 
 	
 
