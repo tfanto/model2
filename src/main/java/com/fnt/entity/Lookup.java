@@ -9,11 +9,14 @@ import javax.persistence.Index;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.envers.Audited;
 
 @Entity
+@Audited
 @Table(name = "lookup", indexes = { @Index(name = "lookup00", columnList = "constant,code", unique = true) })
-@NamedQueries({
-		@NamedQuery(name = Lookup.SYSVAL_GETALLFOR, query = "SELECT m FROM Lookup m where  m.primaryKey.constant=:constant"),
+@NamedQueries({ @NamedQuery(name = Lookup.SYSVAL_GETALLFOR, query = "SELECT m FROM Lookup m where  m.primaryKey.constant=:constant"),
 		@NamedQuery(name = Lookup.SYSVAL_GETALLCONSTANTS, query = "SELECT distinct m.primaryKey.constant FROM Lookup m "), })
 public class Lookup {
 
@@ -33,6 +36,10 @@ public class Lookup {
 	private Long datalong;
 	private Double datadouble;
 	private LocalDateTime datadate;
+
+	@Column(name = "changedby")
+	@NotNull
+	private String changedby;
 
 	@EmbeddedId
 	public LookupPK getPrimaryKey() {
@@ -81,6 +88,14 @@ public class Lookup {
 
 	public void setDatadate(LocalDateTime datadate) {
 		this.datadate = datadate;
+	}
+
+	public String getChangedby() {
+		return changedby;
+	}
+
+	public void setChangedby(String changedby) {
+		this.changedby = changedby;
 	}
 
 	/*
