@@ -48,6 +48,11 @@ public class UserDto implements Serializable {
 	public List<String> getRoles() {
 		return roles;
 	}
+	
+	public void clearRoles() {
+		roles.clear();
+	}
+
 
 	public void addRole(String role) {
 
