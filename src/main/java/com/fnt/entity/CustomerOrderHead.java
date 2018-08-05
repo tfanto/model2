@@ -21,11 +21,13 @@ import org.hibernate.envers.Audited;
 @Audited
 @Table(name = "customer_order_head", indexes = { @Index(columnList = "ordernumber", name = "customerorderhead00", unique = true), @Index(columnList = "internalordernumber", name = "customerorderhead10", unique = true),
 		@Index(columnList = "customerid", name = "customerorderhead20", unique = false) })
-@NamedQueries({ @NamedQuery(name = CustomerOrderHead.CUSTOMER_ORDERHEAD_GET_ALL, query = "SELECT coh FROM CustomerOrderHead coh"), })
+@NamedQueries({ @NamedQuery(name = CustomerOrderHead.CUSTOMER_ORDERHEAD_GET_ALL, query = "SELECT coh FROM CustomerOrderHead coh"),
+		@NamedQuery(name = CustomerOrderHead.CUSTOMER_ORDERHEAD_DELETE_BY_INTERNAL_ORDERNUMBER, query = "DELETE FROM CustomerOrderHead  WHERE internalordernumber=:internalordernumber"), })
 public class CustomerOrderHead {
 
 	public static final String CUSTOMER_ORDERHEAD_GET_ALL = "customerorderhead.getall";
 	public static final String CUSTOMER_ORDERHEAD_UPDATE = "customerorderhead.update";
+	public static final String CUSTOMER_ORDERHEAD_DELETE_BY_INTERNAL_ORDERNUMBER = "customerorderhead.deletebyinternalordernumber";
 
 	@Column(name = "internalordernumber")
 	@NotNull
