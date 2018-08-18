@@ -1,6 +1,7 @@
 package com.fnt.dto;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +12,9 @@ public class UserDto implements Serializable {
 	private static final long serialVersionUID = -8060196328184476479L;
 	private String login = null;
 	private String password = null;
+	private ZonedDateTime lastlogin;
+	private Boolean confirmed;
+	private Boolean blocked;
 	private List<String> roles = new ArrayList<>();
 
 	public UserDto() {
@@ -48,11 +52,10 @@ public class UserDto implements Serializable {
 	public List<String> getRoles() {
 		return roles;
 	}
-	
+
 	public void clearRoles() {
 		roles.clear();
 	}
-
 
 	public void addRole(String role) {
 
@@ -64,5 +67,35 @@ public class UserDto implements Serializable {
 			roles.add(role);
 		}
 	}
+
+	public ZonedDateTime getLastlogin() {
+		return lastlogin;
+	}
+
+	public void setLastlogin(ZonedDateTime lastlogin) {
+		this.lastlogin = lastlogin;
+	}
+
+	public Boolean getBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(Boolean blocked) {
+		this.blocked = blocked;
+	}
+
+	public void setAllowedRoles(List<String> allowedRoles) {
+		this.allowedRoles = allowedRoles;
+	}
+
+	public Boolean getConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(Boolean confirmed) {
+		this.confirmed = confirmed;
+	}
+	
+	
 
 }
