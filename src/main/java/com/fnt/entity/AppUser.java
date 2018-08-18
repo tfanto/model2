@@ -14,11 +14,11 @@ import org.hibernate.envers.Audited;
 @Entity
 @Audited
 @Table(name = "appuser", indexes = { @Index(columnList = "login", name = "appuser00", unique = true),  })
-@NamedQueries({ @NamedQuery(name = AppUser.USER_GET_ALL, query = "SELECT u FROM User u"), 
+@NamedQueries({ @NamedQuery(name = AppUser.APPUSER_GET_ALL, query = "SELECT u FROM AppUser u"), 
 	         })
 public class AppUser {
 
-	public static final String USER_GET_ALL = "customer.getall";
+	public static final String APPUSER_GET_ALL = "appuser.getall";
 
 	public AppUser() {
 		// TODO Auto-generated constructor stub

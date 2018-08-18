@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.validation.constraints.Email;
+
 public class UserDto implements Serializable {
 
 	private List<String> allowedRoles = Arrays.asList("ADMIN", "USER", "GUEST");
 	private static final long serialVersionUID = -8060196328184476479L;
+	@Email(message = "Not a valid email format")
 	private String login = null;
 	private String password = null;
 	private ZonedDateTime lastlogin;
@@ -95,7 +98,5 @@ public class UserDto implements Serializable {
 	public void setConfirmed(Boolean confirmed) {
 		this.confirmed = confirmed;
 	}
-	
-	
 
 }
